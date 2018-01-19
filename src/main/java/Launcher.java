@@ -1,23 +1,23 @@
-
-
-
-
 public class Launcher {
 
     public static void main(String[] args) {
 
-        final int TOT_NO_OF_NODES = 1000;
-        int noOfClients = 1000;
+        final int TOT_NO_OF_NODES = 100;
+        int noOfClients = 1;
         int firstClient = noOfClients-1;
         int nodesPerClient = TOT_NO_OF_NODES/noOfClients;
 
-        String zkHost = "10.130.95.80:2181,10.130.95.80:2182,10.130.95.80:2183";
-        //ClientNode cN = new ClientNode(zkHost);
-        //cN.run();
+        String host = "http://10.130.92.207";
 
         while(noOfClients-- != 0) {
+           new Thread(new EtcdClient(host,noOfClients,TOT_NO_OF_NODES)).start();
 
-           new Thread(new EtcdClient()).start();
+          /*  try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(noOfClients == 499) System.out.println("halvvägs");*/
         }
     }
 }
